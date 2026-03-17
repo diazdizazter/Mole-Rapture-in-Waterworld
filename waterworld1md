@@ -1,166 +1,79 @@
-Project 5 | charity: water Game Prototype
-In this Project, you’ll begin transforming a game concept into a working interactive prototype using HTML, CSS, and JavaScript.
-This first version should focus on core functionality — clickable elements, score tracking, a timer, and a basic layout. The goal is to bring your idea to life with simple, working mechanics, so don’t get bogged down by visual design and other finishing touches. You’ll refine and expand your game next week!
 
-Project Steps Overview:
-Scope your project and choose what game you’ll build:
-Assess your game idea from last week. Do you currently have the coding skills to build it? What elements of the game should be in scope, and what should be out-of-scope, at least for now?
-You do not have to bring to life the same idea from the previous submission. This time, you need to actually build it out, so choose wisely. Scoping the work and evaluating what you can and can’t do (yet!) in the time allotted is an important professional skill to develop.
 
-Water Drop: Users collect as many falling water drops as possible while avoiding dirty water  (bad drops). Users tap to collect drops before they hit the ground. Include a score counter, feedback messages, and penalties for “bad drops” to make it more engaging.
-Water Drop Game: Starter File
 
+Mole Rapture of Waterworld
 
-Note: If you choose your own original idea (and not the provided starter files), you must build it completely from scratch using HTML, CSS, and JavaScript. Use this starter repo to get set up.
-Implement Core Game Features
-Add interactive elements (e.g., clicking on cans to collect points).
-Track and display the player’s score using JavaScript and provide real-time visual feedback when a player interacts with the game (e.g., a number updates, an element's color changes, etc.).
-Ensure your game layout adjusts well across different screen sizes and devices.
-Remember to follow charity: water’s brand guidelines and take inspiration from everything you learned about charity: water to ensure your game aligns with your stakeholders’ needs.
-Stuck? Check out the Debugging Guide for tips and prompts to help you troubleshoot and get better help from AI.
-Ready for a LevelUp? (20pts extra credit):
-Add a Challenge for Users (10 pts): Include an obstacle that reduces the player’s score.
-Add a Game Reset  (5 pts): Add a ‘Reset’ button to give players control over when the game restarts.
-Celebrate Wins  (5 pts): Add a confetti effect or a similar effect when the user wins the game.
+5 by 5 grid
+middle square always empty
 
+water girl and the nuke tokens only have a 2% spawn chance
 
-Submit Your Work
-Commit and push your changes to GitHub.
-Deploy your site and submit the live link. Please test your link in an incognito or private browser to ensure it’s correctly published and visible to evaluators.
-Reflect on your experience and prepare for job interviews and
+water girl only on odds
+nuke only on evens
 
+caveats below
 
 
 
+total amounts of each icons tally on right side
 
+main score and then 2nd score
+every 5 jerry cans adds +1  reserve water score
 
-Time to bring your game idea to life! This week, you’ll begin developing your charity: water game by coding a basic prototype with HTML, CSS, and JavaScript. You’ll implement core features like clickable elements, score tracking, and responsive layout.
+water girl instant win
+nuke token.  instant loss
 
-Your goal isn't to make it perfect, it's to get a functional version up and running that reflects your concept. You’ll have a chance to polish and expand your game next week, but just like in real world environments, it's a good idea to show stakeholders where you're going before you dive too deep into finishing touches.
+dead fish -1 pt  -1 reserve water score points
+yellow skull -1 points   nuke token 1%
+bio -1 points and good moles stay up for a shorter duration
 
+well logo    either +1 main score or +1 reserve score  and 1% water girl
 
+spring logo    +1 main score - good moles will pop down and then pop back to same spot for 2 seconds and then instant drop
 
+pool logo   +1 score and +1 reserve score
 
-so.
 
-I have been debating on two parts.  but that shits all over the keep it simple stupid rule.
-I have never done a tower defense game.  this is not a full one, but has the scope of one
-this feels more missile command or asteroid and i dont really like that.
+bonus specials last for 10 clicks after gathered
 
-i sim city type game where regions have to be setup to progress through levels.
 
-i deally it would be 1 tower defense and then 1 level of sim city water or what ever
 
 
-but for now, the keep it simple stupid approach is a field Region, about 2/3 of screen.
+yellow skull + 1% chance for nuke skull to spawn in center square
+well logo +1% chance for water girl to spawn
 
-i took the whack a mole style starter because it can actually fit both mobile app and pc game.  or tablet or what the fuck ever.
+the percents for each end skull are tracked on the right side token inventory screen
 
-starter level.  is dropped in chat.
+as the percents increase for each end skull, moles pop up and down slightly faster every 10%
 
-shades of blue are water. darker water is better and more precious
+at 6% nuke token,  dead fish tokens no longer spawn
+-- nuke tokens start to cycle instead of fish
 
-lime green with yellow in middle is farm land.
+at 5% water girl jerry cans are worth +2 pts and the original +1 per 5 cans is now +4 cans instead of 5
 
-shades of red are always bad guy pop ups  .  though with a variance on strength
+11% nuke token yellow skulls no longer spawn
+more nuke tokens cycle in now
 
-dark green is poison water.the longer they are up the more score drops
+nuke tokens last slightly longer than normal bad tokens
 
+at 7% water girl will start to spawn by replacing jerry cans
+water girl only stays up for about half of what a normal token stays up
 
-yellow hearts are specials, though rare.
+at 10% water girl the token pop up and down speed slows down  by 15%
 
+at every 5% of nuke token causes speed to pick up by 8%
 
-the idea is that the purples and pinks pop ups you want to stay up.
-that symbolizes that the water is being used, points are scores.
 
-bright green triangles are happy farmland
+a win should make the water girl appear in center square and the grids turn aqua blue
 
-purple are expansive toxic sludge.  but sometimes purple can have beneficials pop up
+a loss should have the nuke token and the grids all turn green
 
-now.  sometimes when something is bonked back down from the whack, it can  net a reward instead of points
 
-rewards come in a variety of power ups.  like water moles score points faster or sluge or poisons can disappear faster.  or mo0re points per whack or more points for specials.
-can contribute to less point loss on misses or  time up for bad moles.
 
-special yellow heart rares can expand the size of the whack zone.  what ever is being clicked on or poked on if its a phone or tablet.
 
-yellow hearts can about 30% of the time pop up with a double pop rare, so that when things go down, they bounce back up for a 5 seconds before they bounce back down.
+please condense and add these instructions to the left side.
 
-all specials and power ups last 60 seconds
-
-combos can be achieved by the amount of good moles up at any time.  more good moles, better score pop multis
-
-same goes for bad moles.  many bad moles are bad.
-
-if too many bad moles are raised in a section.  call it  a
-
-4 verticle line  and 3 horizontal lines across.  called tile region for now.
-so.  if enough moles are up in that section of line regions it will kill the area.  it turns dark green.  nothing else can pop up from that region
-
-
-light browns are  tunnelers.  if they are up in 1 spot, a 2nd tunnel mole will be up, and they cross between them, so they field bonus moles from both regions where the double pop mole is up and shared
-
-any mole whacked from a black edge will drop all the bad moles in that tile region
-
-
-now.  this hole time (pun not intended), the water streams are flowing.  those build points.
-
-if any mole is up that is on a blue water way, that water way stops at that point as a damn.  call them beavers
-
-good beavers, or bad beavers can pop up out of those.  bad beavers can turn the water green, good beavers can shift it darker blue.
-
-the darker the water in motion, the higher points being scored.
-
-if a tile section gets destroyed, that entire water way gets split up.  so those are the do or die areas
-
-if an tile area dies their score is cut by 1/3
-
-
-if at any time the score reachs 0 the game ends.
-
-
-the stage 1 pic.  the water bucket can be like a bonus pop up that when active all water in motion scores more points.
-
-charity water sub brands.  those icons can be what pops up from a special that gets hit.
-
-the water buckets name is jerry
-
-the charity water in the middle bottom can go up along the top right corner of the game window.  score. can go below it.
-
-the stage 1 pic.  the water bucket can be like a bonus pop up that when active all water in motion scores more points.
-
-charity water sub brands.  those icons can be what pops up from a special that gets hit.  can have icons for what current active specials are active also
-
-ah o
-
-
-
-
-
-can you edit out the clean water glasses for icons or should i upload them one by one ?
-
-ok.  i think that is enough for now.
-
-yes.  I just made that up right on the spot
-no one believes me when i say i have an unofficial post doctorate in game theory. but.  im 52.  been on a pc since 1985 and started doing8 silly code your own games back in the early 80s.
-
-Thank you.  this should be fun :)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+will this work on a phone or tablet still or is it getting too silly
 
 
 

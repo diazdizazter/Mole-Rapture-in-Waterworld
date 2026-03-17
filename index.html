@@ -8,19 +8,61 @@
 </head>
 <body>
   <div class="container">
-    <h1><img src="img/cw_logo_horizontal.png" alt="charity: water logo">Water Quest</h1>
-    <p class="game-instructions">Collect clean water cans, avoid dirty drops, and reach 20 points.</p>
+    <header class="top-bar">
+      <h1><img src="img/cw_logo_horizontal.png" alt="charity: water logo">Mole Rapture of Waterworld</h1>
+      <div class="controls">
+        <button id="start-game">Start</button>
+        <button id="reset-game">Reset</button>
+      </div>
+    </header>
+
     <div class="stats">
-      <p>Score: <span id="current-cans">0</span></p>
-      <p>Time Left: <span id="timer">30</span>s</p>
+      <p>Main Score: <span id="main-score">0</span></p>
+      <p>Reserve Score: <span id="reserve-score">0</span></p>
+      <p>Clicks Left: <span id="clicks-left">90</span></p>
     </div>
-    <div id="achievements" class="achievement"></div>
-    <div class="game-grid"></div>
-    <div class="controls">
-      <button id="start-game">Start Game</button>
-      <button id="reset-game">Reset</button>
+
+    <div id="message" class="message">Press Start to begin.</div>
+
+    <main class="game-layout">
+      <aside class="panel instructions">
+        <h2>Quick Rules</h2>
+        <ul>
+          <li>5x5 grid, center is locked.</li>
+          <li>Jerry = score. Every 5 jerry gives +1 reserve.</li>
+          <li>At 5% Water Girl: Jerry gives +2 and reserve every 4.</li>
+          <li>Water Girl (odd spawns): instant win.</li>
+          <li>Nuke (even spawns): instant loss.</li>
+          <li>Dead Fish: -1 main, -1 reserve.</li>
+          <li>Yellow Skull: -1 main, +1% Nuke chance.</li>
+          <li>Bio: -1 main, good token duration drops (10 clicks).</li>
+          <li>Well: +1 main or reserve, +1% Water Girl chance.</li>
+          <li>Spring: +1 main, next good tokens bounce once (10 clicks).</li>
+          <li>Pool: +1 main, +1 reserve.</li>
+        </ul>
+      </aside>
+
+      <section class="board-wrap">
+        <div id="game-grid" class="game-grid" aria-label="Game grid"></div>
+      </section>
+
+      <aside class="panel inventory">
+        <h2>Token Inventory</h2>
+        <div id="inventory-list"></div>
+        <div class="percent-block">
+          <p>Water Girl chance: <span id="water-girl-percent">2%</span></p>
+          <p>Nuke chance: <span id="nuke-percent">2%</span></p>
+        </div>
+      </aside>
+    </main>
+
+    <div class="legend">
+      <img src="img/water-girl.png" alt="Water Girl token">
+      <img src="img/nuke.png" alt="Nuke token">
+      <img src="img/pool-logo.png" alt="Pool logo token">
+      <img src="img/well-logo.png" alt="Well logo token">
+      <img src="img/spring-logo.png" alt="Spring logo token">
     </div>
-    <div id="celebration" aria-hidden="true"></div>
   </div>
   <script src="script.js"></script>
 </body>
