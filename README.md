@@ -45,3 +45,10 @@ These are the minimum requirements, but if you'd like an additional challenge go
 
 If you have any questions or need any assistance with your code, reach out to the HelpHub or attend a Drop-In Hour. You got this!!
 
+## Deployment Notes (GitHub Pages)
+
+- This project includes a Pages workflow at `.github/workflows/deploy-pages.yml`.
+- A `.nojekyll` file is included so static assets deploy without Jekyll processing.
+- For best reliability, set repository Pages Source to **GitHub Actions**.
+- Current deploy branch support in workflow: `Fizgig` and `main`.
+
