@@ -17,3 +17,9 @@ https://diazdizazter.github.io/Mole-Rapture-in-Waterworld/
 - For best reliability, set repository Pages Source to **GitHub Actions**.
 - Current deploy branch support in workflow: `Fizgig` and `main`.
 
+## Branch History Notes
+
+- `mariner` is the proof-of-concept snapshot (last-week version).
+- `main` is the current expanded version.
+- Reference tag for the POC snapshot: `poc-mariner`.
+
