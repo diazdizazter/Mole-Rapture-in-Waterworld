@@ -4,6 +4,13 @@ const BASE_CLICKS = 90;
 const BASE_SPAWN_MS = 1100;
 const BASE_TOKEN_MS = 900;
 const GLOBAL_SPEED_BOOST = 1.11;
+const STAGE_BASELINE = 4;
+const STAGE_UP_MULTIPLIER = 1.12;
+const STAGE_DOWN_MULTIPLIER = 0.89;
+const GRID_TILE_COUNT_BY_STAGE = { 1: 3, 2: 5, 3: 7, 4: 9, 5: 9 };
+const GRID_PRIORITY = [7, 11, 13, 17, 6, 8, 16, 18, 1, 3, 5, 9, 15, 19, 21, 23, 0, 2, 4, 10, 14, 20, 22, 24];
+const WIN_SOUND_PATH = 'wav/mixkit-light-applause-with-laughter-audience-512.wav';
+const winAudio = new Audio(WIN_SOUND_PATH);
 
 const tokenConfig = {
   jerry: { label: 'Jerry', image: 'img/better-jerry.png' },
@@ -29,11 +36,117 @@ const state = {
   nukeChanceBonus: 0,
   springCharges: 0,
   bioCharges: 0,
+  popupSpeedStage: 4,
+  cycleSpeedStage: 4,
+  gridDensityStage: 4,
+  playableIndices: [],
   activeToken: null,
   spawnInterval: null,
   tokenTimeout: null,
   counts: Object.keys(tokenConfig).reduce((acc, key) => ({ ...acc, [key]: 0 }), {})
 };
+
+function getStageSpeedMultiplier(stage) {
+  if (stage === STAGE_BASELINE) return 1;
+  if (stage > STAGE_BASELINE) {
+    return STAGE_UP_MULTIPLIER ** (stage - STAGE_BASELINE);
+  }
+  return STAGE_DOWN_MULTIPLIER ** (STAGE_BASELINE - stage);
+}
+
+function getPopupSpeedMultiplier() {
+  return getStageSpeedMultiplier(state.popupSpeedStage);
+}
+
+function getCycleSpeedMultiplier() {
+  return getStageSpeedMultiplier(state.cycleSpeedStage);
+}
+
+function formatStageDelta(stage) {
+  const multiplier = getStageSpeedMultiplier(stage);
+  const percent = (multiplier - 1) * 100;
+  if (Math.abs(percent) < 0.05) return '0%';
+  const rounded = Math.round(percent * 10) / 10;
+  const text = Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+  return `${rounded > 0 ? '+' : ''}${text}%`;
+}
+
+function refreshDifficultyLabels() {
+  const popupLabel = document.getElementById('popup-speed-value');
+  const cycleLabel = document.getElementById('cycle-speed-value');
+  const gridLabel = document.getElementById('grid-density-value');
+  if (popupLabel) {
+    popupLabel.textContent = `Stage ${state.popupSpeedStage} (${formatStageDelta(state.popupSpeedStage)})`;
+  }
+  if (cycleLabel) {
+    cycleLabel.textContent = `Stage ${state.cycleSpeedStage} (${formatStageDelta(state.cycleSpeedStage)})`;
+  }
+  if (gridLabel) {
+    gridLabel.textContent = `${getGridTileCount()} tiles`;
+  }
+}
+
+function handlePopupSpeedChange(value) {
+  const stage = Math.max(1, Math.min(5, Number(value)));
+  state.popupSpeedStage = stage;
+  refreshDifficultyLabels();
+}
+
+function handleCycleSpeedChange(value) {
+  const stage = Math.max(1, Math.min(5, Number(value)));
+  state.cycleSpeedStage = stage;
+  refreshDifficultyLabels();
+  if (state.active && !state.ended) {
+    startSpawnLoop();
+  }
+}
+
+function getGridTileCount(stage = state.gridDensityStage) {
+  return GRID_TILE_COUNT_BY_STAGE[stage] ?? GRID_TILE_COUNT_BY_STAGE[2];
+}
+
+function getGridSizeScale(stage = state.gridDensityStage) {
+  if (stage === 1) return 1.25;
+  if (stage >= 3) return 0.75;
+  return 1;
+}
+
+function getPlayableIndices() {
+  return GRID_PRIORITY.slice(0, getGridTileCount());
+}
+
+function applyGridDensityToUI() {
+  const grid = document.getElementById('game-grid');
+  if (!grid) return;
+
+  state.playableIndices = getPlayableIndices();
+  grid.style.setProperty('--cell-scale', String(getGridSizeScale()));
+
+  const playableSet = new Set(state.playableIndices);
+  const cells = grid.querySelectorAll('.grid-cell');
+  cells.forEach((cell) => {
+    const index = Number(cell.dataset.index);
+    if (index === CENTER_INDEX) return;
+    const isPlayable = playableSet.has(index);
+    cell.classList.toggle('non-playable', !isPlayable);
+    cell.disabled = !isPlayable;
+  });
+
+  if (state.activeToken && !playableSet.has(state.activeToken.index)) {
+    clearTimeout(state.tokenTimeout);
+    clearActiveToken();
+    if (state.active && !state.ended) {
+      spawnToken();
+    }
+  }
+}
+
+function handleGridDensityChange(value) {
+  const stage = Math.max(1, Math.min(5, Number(value)));
+  state.gridDensityStage = stage;
+  refreshDifficultyLabels();
+  applyGridDensityToUI();
+}
 
 function createGrid() {
   const grid = document.getElementById('game-grid');
@@ -50,6 +163,7 @@ function createGrid() {
     }
     grid.appendChild(cell);
   }
+  applyGridDensityToUI();
 }
 
 function setMessage(text, type = '') {
@@ -74,11 +188,11 @@ function getSpeedMultiplier() {
 }
 
 function getSpawnMs() {
-  return Math.max(350, Math.round(BASE_SPAWN_MS / (getSpeedMultiplier() * GLOBAL_SPEED_BOOST)));
+  return Math.max(350, Math.round(BASE_SPAWN_MS / (getSpeedMultiplier() * GLOBAL_SPEED_BOOST * getCycleSpeedMultiplier())));
 }
 
 function getTokenLifetime(type) {
-  let ms = Math.round(BASE_TOKEN_MS / (getSpeedMultiplier() * GLOBAL_SPEED_BOOST));
+  let ms = Math.round(BASE_TOKEN_MS / (getSpeedMultiplier() * GLOBAL_SPEED_BOOST * getPopupSpeedMultiplier()));
   if (type === 'nuke') ms += 420;
   if (state.bioCharges > 0 && ['jerry', 'well', 'spring', 'pool'].includes(type)) ms = Math.round(ms * 0.68);
   if (type === 'waterGirl') ms = Math.round(ms * 0.5);
@@ -136,6 +250,11 @@ function endGame(win) {
   grid.classList.toggle('win-grid', win);
   grid.classList.toggle('loss-grid', !win);
   setMessage(win ? 'Instant win! Water Girl saved Waterworld.' : 'Instant loss! Nuke meltdown.', win ? 'win' : 'loss');
+
+  if (win) {
+    winAudio.currentTime = 0;
+    winAudio.play().catch(() => {});
+  }
 }
 
 function spendClick() {
@@ -243,11 +362,26 @@ function pickTokenType() {
 }
 
 function getSpawnIndex() {
-  const indices = [];
-  for (let i = 0; i < GRID_SIZE * GRID_SIZE; i += 1) {
-    if (i !== CENTER_INDEX) indices.push(i);
-  }
+  const indices = state.playableIndices.length > 0 ? state.playableIndices : getPlayableIndices();
   return indices[Math.floor(Math.random() * indices.length)];
+}
+
+function isFailureToken(type) {
+  return ['deadFish', 'yellowSkull', 'bio', 'nuke'].includes(type);
+}
+
+function runHitAnimation(cell, type, onDone) {
+  const fail = isFailureToken(type);
+  const token = cell.querySelector('.token');
+  cell.classList.add('hit-anim');
+  cell.classList.add(fail ? 'hit-fail' : 'hit-success');
+  if (!fail && token) token.classList.add('spin-ccw');
+
+  setTimeout(() => {
+    cell.classList.remove('hit-anim', 'hit-fail', 'hit-success');
+    if (token) token.classList.remove('spin-ccw');
+    onDone();
+  }, 300);
 }
 
 function spawnToken(preferredIndex, isBounce = false) {
@@ -334,21 +468,34 @@ document.getElementById('game-grid').addEventListener('click', (event) => {
 
   const { type } = state.activeToken;
   clearTimeout(state.tokenTimeout);
-  clearActiveToken();
-  spendClick();
-  if (state.ended) return;
-  applyTokenEffect(type, index);
-  updateStats();
-  renderInventory();
-  if (state.active && !state.ended) {
-    startSpawnLoop();
-    spawnToken();
-  }
+  clearInterval(state.spawnInterval);
+  runHitAnimation(cell, type, () => {
+    clearActiveToken();
+    spendClick();
+    if (state.ended) return;
+    applyTokenEffect(type, index);
+    updateStats();
+    renderInventory();
+    if (state.active && !state.ended) {
+      startSpawnLoop();
+      spawnToken();
+    }
+  });
 });
 
 document.getElementById('start-game').addEventListener('click', startGame);
 document.getElementById('reset-game').addEventListener('click', resetGame);
+document.getElementById('popup-speed-slider').addEventListener('input', (event) => {
+  handlePopupSpeedChange(event.target.value);
+});
+document.getElementById('cycle-speed-slider').addEventListener('input', (event) => {
+  handleCycleSpeedChange(event.target.value);
+});
+document.getElementById('grid-density-slider').addEventListener('input', (event) => {
+  handleGridDensityChange(event.target.value);
+});
 
 createGrid();
 updateStats();
 renderInventory();
+refreshDifficultyLabels();
