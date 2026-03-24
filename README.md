@@ -1,11 +1,14 @@
 # charity: water – Water Quest Game Starter
 
-In this game, users tap charity: water’s signature yellow jerry cans as fast as they can to earn points. You’ll be working from a partially built version of the game. Some functionality is already provided, and your job is to complete the rest.
+Whack-a-mole taken to the next, next, next level.  
 
 ## What’s Already Done
 Everything, plus the kitchen sink.  
 
 Immaculate and superb.  goood luck beating it on default settings :)  
+it is ok if you have to turn the settings down
+
+https://diazdizazter.github.io/05-cw-game-water-quest/
 
 ## Deployment Notes (GitHub Pages)
 
