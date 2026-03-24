@@ -5,9 +5,16 @@
 body {
   margin: 0;
   padding: 14px;
-  font-family: Arial, sans-serif;
+  font-family: "Trebuchet MS", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   background: #FF902A;
   color: #050200;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }
 
 .container {
@@ -24,7 +31,7 @@ body {
 
 .top-bar {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 14px;
 }
@@ -46,6 +53,8 @@ h1 img {
 .game-title {
   position: relative;
   justify-self: center;
+  width: 100%;
+  text-align: center;
 }
 
 .logo-hover-wrap,
@@ -61,8 +70,10 @@ h1 img {
 }
 
 .cw-logo-alt {
+  width: 156px;
   height: 32px;
-  width: auto;
+  object-fit: contain;
+  object-position: left center;
 }
 
 .top-bar .logo-hover-wrap:first-child {
@@ -126,60 +137,6 @@ h1 img {
 .logo-hover-wrap:focus-within .qr-popover,
 .title-hover-wrap:hover .qr-popover,
 .title-hover-wrap:focus-within .qr-popover {
-  display: block;
-}
-
-.legend-charity-wrap {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.legend-charity-logo {
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-}
-
-.legend-qr-popover {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  right: 0;
-  z-index: 20;
-  display: none;
-  width: max-content;
-  max-width: min(88vw, 300px);
-  padding: 8px;
-  background: #FFC907;
-  border: 2px solid #FFC907;
-  border-radius: 4px;
-  box-shadow: 0 2px 14px rgb(1, 0, 6);
-  text-align: center;
-}
-
-.legend-qr-popover a {
-  display: block;
-  margin-bottom: 6px;
-  color: #FF902A;
-  font-size: 0.76rem;
-  font-weight: 700;
-  text-decoration: underline;
-  word-break: break-word;
-}
-
-.legend-qr-popover img {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  border: 2px solid #FFC907;
-  border-radius: 4px;
-  background: #ffffff;
-}
-
-.legend-charity-wrap:hover .legend-qr-popover,
-.legend-charity-wrap:focus-within .legend-qr-popover {
   display: block;
 }
 
@@ -370,10 +327,12 @@ button {
 }
 
 .grid-cell.center-lock {
-  background: #00defb;
-  border: 2px solid #FFC907;
+  background: #94a5b6;
+  border: 2px dashed #FFC907;
   border-radius: 2px;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
+  opacity: 0.35;
+  pointer-events: none;
 }
 
 .grid-cell.non-playable {
@@ -515,12 +474,4 @@ button {
     height: 130px;
   }
 
-  .legend-qr-popover {
-    max-width: min(92vw, 270px);
-  }
-
-  .legend-qr-popover img {
-    width: 130px;
-    height: 130px;
-  }
 }

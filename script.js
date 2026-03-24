@@ -7,8 +7,7 @@ const GLOBAL_SPEED_BOOST = 1.11;
 const STAGE_BASELINE = 4;
 const STAGE_UP_MULTIPLIER = 1.12;
 const STAGE_DOWN_MULTIPLIER = 0.89;
-const GRID_TILE_COUNT_BY_STAGE = { 1: 3, 2: 5, 3: 7, 4: 9, 5: 11 };
-const GRID_PRIORITY = [7, 11, 13, 17, 6, 8, 16, 18, 1, 3, 5, 9, 15, 19, 21, 23, 0, 2, 4, 10, 14, 20, 22, 24];
+const GRID_MODE_BY_STAGE = { 1: '3x3', 2: '5x5' };
 const WIN_SOUND_PATH = 'wav/mixkit-light-applause-with-laughter-audience-512.wav';
 const winAudio = new Audio(WIN_SOUND_PATH);
 
@@ -38,7 +37,7 @@ const state = {
   bioCharges: 0,
   popupSpeedStage: 4,
   cycleSpeedStage: 4,
-  gridDensityStage: 4,
+  gridDensityStage: 2,
   playableIndices: [],
   activeToken: null,
   spawnInterval: null,
@@ -82,7 +81,9 @@ function refreshDifficultyLabels() {
     cycleLabel.textContent = `Stage ${state.cycleSpeedStage} (${formatStageDelta(state.cycleSpeedStage)})`;
   }
   if (gridLabel) {
-    gridLabel.textContent = `${getGridTileCount()} tiles`;
+    const mode = getGridMode();
+    const count = getPlayableIndices(mode).length;
+    gridLabel.textContent = `${mode} (${count} playable)`;
   }
 }
 
@@ -101,13 +102,21 @@ function handleCycleSpeedChange(value) {
   }
 }
 
-function getGridTileCount(stage = state.gridDensityStage) {
-  const normalizedStage = Math.max(1, Math.min(5, Number(stage)));
-  return GRID_TILE_COUNT_BY_STAGE[normalizedStage] ?? GRID_TILE_COUNT_BY_STAGE[2];
+function getGridMode(stage = state.gridDensityStage) {
+  const normalizedStage = Math.max(1, Math.min(2, Number(stage)));
+  return GRID_MODE_BY_STAGE[normalizedStage] ?? GRID_MODE_BY_STAGE[2];
 }
 
-function getPlayableIndices() {
-  return GRID_PRIORITY.slice(0, getGridTileCount());
+function getPlayableIndices(mode = getGridMode()) {
+  if (mode === '3x3') {
+    return [6, 7, 8, 11, 13, 16, 17, 18];
+  }
+
+  const all = [];
+  for (let i = 0; i < GRID_SIZE * GRID_SIZE; i += 1) {
+    if (i !== CENTER_INDEX) all.push(i);
+  }
+  return all;
 }
 
 function applyGridDensityToUI() {
@@ -136,7 +145,7 @@ function applyGridDensityToUI() {
 }
 
 function handleGridDensityChange(value) {
-  const stage = Math.max(1, Math.min(5, Number(value)));
+  const stage = Math.max(1, Math.min(2, Number(value)));
   state.gridDensityStage = stage;
   refreshDifficultyLabels();
   applyGridDensityToUI();
