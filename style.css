@@ -6,7 +6,7 @@ body {
   margin: 0;
   padding: 14px;
   font-family: "Trebuchet MS", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  background: #FF902A;
+  background: #FFC907;
   color: #050200;
 }
 
@@ -20,12 +20,12 @@ textarea {
 .container {
   max-width: 1240px;
   margin: 0 auto;
-  background: #FFC907;
-  border-top: 5px solid #FFC907;
+  background: #FF902A;
+  border-top: 5px solid #FF902A;
   border-radius: 4px;
   padding: 10px;
 
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
 }
 
@@ -102,8 +102,8 @@ h1 img {
   width: max-content;
   max-width: min(88vw, 300px);
   padding: 8px;
-  background: #FFC907;
-  border: 2px solid #FFC907;
+  background: #FF902A;
+  border: 2px solid #FF902A;
   border-radius: 4px;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
   text-align: center;
@@ -120,13 +120,13 @@ h1 img {
   object-fit: contain;
   display: block;
   margin: 0 auto 6px;
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
   border-radius: 4px;
   background: #ffffff;
 }
 
 .qr-popover a {
-  color: #FF902A;
+  color: #FFC907;
   font-size: 0.76rem;
   font-weight: 700;
   text-decoration: underline;
@@ -142,7 +142,7 @@ h1 img {
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(100px, 1fr));
+  grid-template-columns: repeat(5, minmax(100px, 1fr));
   gap: 10px;
   margin: 12px 0;
 
@@ -153,12 +153,12 @@ h1 img {
 .stats p {
   margin: 0;
   padding: 5px;
-  background: #FFC907;
+  background: #FF902A;
   border-radius: 2px;
   font-weight: 700;
   text-align: center;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
 
 }
 
@@ -168,7 +168,7 @@ h1 img {
   font-weight: 700;
   text-align: center;
   border-radius: 3px;
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
 }
 
@@ -189,20 +189,20 @@ h1 img {
 
 button {
   padding: 4px;
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
   border-radius: 3px;
   padding: 3px 10px;
-  color: #FFC907;
-  background: #FF902A;
+  color: #FF902A;
+  background: #FFC907;
   font-weight: 700;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
   cursor: pointer;
 }
 
 #reset-game {
-  background: #FF902A;
-  border: 2px solid #FFC907;
+  background: #FFC907;
+  border: 2px solid #FF902A;
   border-radius: 2px;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
 }
@@ -214,8 +214,8 @@ button {
 }
 
 .panel {
-  background: #FFC907;
-  border: 2px solid #FFC907;
+  background: #FF902A;
+  border: 2px solid #FF902A;
   border-radius: 3px;
   padding: 5px;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
@@ -239,7 +239,7 @@ button {
 .difficulty-controls {
   margin-top: 10px;
   padding-top: 8px;
-  border-top: 2px solid #FFC907;
+  border-top: 2px solid #FF902A;
   display: grid;
   gap: 6px;
 }
@@ -258,8 +258,8 @@ button {
   width: 100%;
   height: 8px;
   border-radius: 8px;
-  background: #FF902A;
-  border: 2px solid #FFC907;
+  background: #FFC907;
+  border: 2px solid #FF902A;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
   cursor: pointer;
 }
@@ -270,8 +270,8 @@ button {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 2px solid #FFC907;
-  background: #FFC907;
+  border: 2px solid #FF902A;
+  background: #FF902A;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
 }
 
@@ -279,16 +279,16 @@ button {
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  border: 2px solid #FFC907;
-  background: #FFC907;
+  border: 2px solid #FF902A;
+  background: #FF902A;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
 }
 
 .difficulty-controls input[type="range"]::-moz-range-track {
   height: 8px;
   border-radius: 8px;
-  background: #FF902A;
-  border: 2px solid #FFC907;
+  background: #FFC907;
+  border: 2px solid #FF902A;
 }
 
 .board-wrap {
@@ -302,15 +302,15 @@ button {
   grid-template-columns: repeat(5, 1fr);
   gap: 8px;
   padding: 8px;
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
   border-radius: 4px;
-  background: #FF902A;
+  background: #FFC907;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
 }
 
 .grid-cell {
   aspect-ratio: 1;
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
   border-radius: 2px;
   background: #00defb;
   padding: 0;
@@ -322,13 +322,13 @@ button {
 
 .grid-cell.active-cell {
   background: #fff9da;
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
   border-radius: 3px;
 }
 
 .grid-cell.center-lock {
   background: #94a5b6;
-  border: 2px dashed #FFC907;
+  border: 2px dashed #FF902A;
   border-radius: 2px;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
   opacity: 0.35;
@@ -379,7 +379,7 @@ button {
   height: 72%;
   object-fit: contain;
   pointer-events: none;
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
   border-radius: 3px;
 }
 
@@ -390,7 +390,7 @@ button {
   gap: 6px;
   margin-bottom: 5px;
   font-size: 0.9rem;
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
   border-radius: 1px;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
 
@@ -402,7 +402,7 @@ button {
   object-fit: contain;
   border-radius: 1px;
   background: #00defb;
-  border: 1px solid #FFC907;
+  border: 1px solid #FF902A;
 
 }
 
@@ -435,6 +435,10 @@ button {
 }
 
 @media (max-width: 980px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+  }
+
   .top-bar {
     grid-template-columns: 1fr;
     justify-items: center;
@@ -448,7 +452,7 @@ button {
   .game-layout {
     grid-template-columns: 1fr;
 
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
   border-radius: 3px;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
   }
@@ -456,7 +460,7 @@ button {
   .game-grid {
     width: min(94vw, 560px);
 
-  border: 2px solid #FFC907;
+  border: 2px solid #FF902A;
   border-radius: 3px;
   box-shadow: 0 2px 14px rgb(1, 0, 6);
   }

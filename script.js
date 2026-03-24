@@ -26,6 +26,8 @@ const tokenConfig = {
 const state = {
   active: false,
   ended: false,
+  sessionWins: 0,
+  sessionLosses: 0,
   mainScore: 0,
   reserveScore: 0,
   clicksLeft: BASE_CLICKS,
@@ -206,6 +208,8 @@ function updateStats() {
   document.getElementById('main-score').textContent = String(state.mainScore);
   document.getElementById('reserve-score').textContent = String(Math.max(0, state.reserveScore));
   document.getElementById('clicks-left').textContent = String(state.clicksLeft);
+  document.getElementById('session-wins').textContent = String(state.sessionWins);
+  document.getElementById('session-losses').textContent = String(state.sessionLosses);
   document.getElementById('water-girl-percent').textContent = `${Math.round(getWaterGirlChance() * 100)}%`;
   document.getElementById('nuke-percent').textContent = `${Math.round(getNukeChance() * 100)}%`;
 }
@@ -236,8 +240,14 @@ function clearActiveToken() {
 }
 
 function endGame(win) {
+  if (state.ended) return;
   state.active = false;
   state.ended = true;
+  if (win) {
+    state.sessionWins += 1;
+  } else {
+    state.sessionLosses += 1;
+  }
   clearInterval(state.spawnInterval);
   clearTimeout(state.tokenTimeout);
   clearActiveToken();
@@ -253,6 +263,7 @@ function endGame(win) {
   grid.classList.toggle('win-grid', win);
   grid.classList.toggle('loss-grid', !win);
   setMessage(win ? 'Instant win! Water Girl saved Waterworld.' : 'Instant loss! Nuke meltdown.', win ? 'win' : 'loss');
+  updateStats();
 
   if (win) {
     winAudio.currentTime = 0;
