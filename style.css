@@ -340,11 +340,19 @@ button {
 }
 
 .grid-cell {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
   aspect-ratio: 1;
   border: 2px solid #FF902A;
   border-radius: 2px;
   background: #00defb;
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
   padding: 0;
+  font-size: 0;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
