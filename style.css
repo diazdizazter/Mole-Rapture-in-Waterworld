@@ -327,7 +327,7 @@ button {
 }
 
 .game-grid {
-  width: min(68vw, 560px);
+  width: min(52vw, 480px);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 8px;
@@ -534,7 +534,7 @@ button {
   }
 
   .game-grid {
-    width: min(94vw, 560px);
+    width: min(85vw, 480px);
 
   border: 2px solid #FF902A;
   border-radius: 3px;
