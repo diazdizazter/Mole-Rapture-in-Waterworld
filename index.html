@@ -47,22 +47,35 @@
     <main class="game-layout">
       <aside class="panel instructions">
         <h2>Quick Rules</h2>
-        <ul>
-          <li>5x5 grid, center is locked.</li>
-          <li>Jerry = score. Every 5 jerry gives +1 reserve.</li>
-          <li>At 5% Water Girl: Jerry gives +2 and reserve every 4.</li>
-          <li>Water Girl (odd spawns): instant win.</li>
-          <li>Nuke (even spawns): instant loss.</li>
-          <li>Dead Fish: -1 main, -1 reserve.</li>
-          <li>Yellow Skull: -1 main, +1% Nuke chance.</li>
-          <li>Bio: -1 main, good token duration drops (10 clicks).</li>
-          <li>Well: +1 main or reserve, +1% Water Girl chance.</li>
-          <li>Spring: +1 main, next good tokens bounce once (10 clicks).</li>
-          <li>Pool: +1 main, +1 reserve.</li>
-          <li>Recycling: -1 extra click, +1 main score.</li>
-          <li>Gas Mask: +1 click, -1 reserve score.</li>
-          <li>Every 7 reserve: removed for +3 main score.</li>
-        </ul>
+        <div class="rules-section">
+          <h3>Good Tokens</h3>
+          <ul>
+            <li><strong>Jerry:</strong> +1 score. Every 5 = +1 reserve.</li>
+            <li><strong>Well:</strong> +1 main or reserve, +1% Water Girl.</li>
+            <li><strong>Spring:</strong> +1 main, bounce good tokens (10 clicks).</li>
+            <li><strong>Pool:</strong> +1 main, +1 reserve.</li>
+            <li><strong>Recycling:</strong> +1 main, -1 extra click.</li>
+            <li><strong>Water Girl:</strong> Instant win!</li>
+          </ul>
+        </div>
+        <div class="rules-section">
+          <h3>Bad Tokens</h3>
+          <ul>
+            <li><strong>Dead Fish:</strong> -1 main, -1 reserve.</li>
+            <li><strong>Yellow Skull:</strong> -1 main, +1% Nuke.</li>
+            <li><strong>Bio:</strong> -1 main, shorten good tokens (10 clicks).</li>
+            <li><strong>Gas Mask:</strong> +1 click, -1 reserve.</li>
+            <li><strong>Nuke:</strong> Instant loss!</li>
+          </ul>
+        </div>
+        <div class="rules-section">
+          <h3>Special</h3>
+          <ul>
+            <li>At 5% Water Girl: Jerry = +2, reserve cycle = every 4.</li>
+            <li>Every 7 reserve converts to +3 main.</li>
+            <li>Center tile always locked.</li>
+          </ul>
+        </div>
         <div class="controls">
           <button id="start-game">Start</button>
           <button id="reset-game">Reset</button>

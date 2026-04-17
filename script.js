@@ -225,7 +225,18 @@ function updateStats() {
 function renderInventory() {
   const list = document.getElementById('inventory-list');
   list.innerHTML = '';
-  Object.entries(tokenConfig).forEach(([key, data]) => {
+  const goodTokens = ['jerry', 'well', 'spring', 'pool', 'waterGirl', 'recycling'];
+  const badTokens = ['deadFish', 'yellowSkull', 'bio', 'gasmask', 'nuke'];
+  
+  const goodSection = document.createElement('div');
+  goodSection.className = 'inventory-section';
+  const goodHeader = document.createElement('div');
+  goodHeader.className = 'inventory-header';
+  goodHeader.textContent = 'Good Tokens';
+  goodSection.appendChild(goodHeader);
+  
+  goodTokens.forEach(key => {
+    const data = tokenConfig[key];
     const row = document.createElement('div');
     row.className = 'inventory-row';
     row.innerHTML = `
@@ -233,8 +244,29 @@ function renderInventory() {
       <span>${data.label}</span>
       <strong>${state.counts[key]}</strong>
     `;
-    list.appendChild(row);
+    goodSection.appendChild(row);
   });
+  list.appendChild(goodSection);
+  
+  const badSection = document.createElement('div');
+  badSection.className = 'inventory-section';
+  const badHeader = document.createElement('div');
+  badHeader.className = 'inventory-header';
+  badHeader.textContent = 'Bad Tokens';
+  badSection.appendChild(badHeader);
+  
+  badTokens.forEach(key => {
+    const data = tokenConfig[key];
+    const row = document.createElement('div');
+    row.className = 'inventory-row';
+    row.innerHTML = `
+      <img src="${data.image}" alt="${data.label}">
+      <span>${data.label}</span>
+      <strong>${state.counts[key]}</strong>
+    `;
+    badSection.appendChild(row);
+  });
+  list.appendChild(badSection);
 }
 
 function clearActiveToken() {
@@ -247,7 +279,7 @@ function clearActiveToken() {
   state.activeToken = null;
 }
 
-function endGame(win) {
+function endGame(win, isWaterGirlVictory = false) {
   if (state.ended) return;
   state.active = false;
   state.ended = true;
@@ -270,7 +302,13 @@ function endGame(win) {
   }
   grid.classList.toggle('win-grid', win);
   grid.classList.toggle('loss-grid', !win);
-  setMessage(win ? 'Instant win! Water Girl saved Waterworld.' : 'Instant loss! Nuke meltdown.', win ? 'win' : 'loss');
+  let message = '';
+  if (win) {
+    message = isWaterGirlVictory ? 'Instant win! Water Girl saved Waterworld.' : 'you survived WaterWorld Rapture! CONGRATULATIONS!!';
+  } else {
+    message = 'Instant loss! Nuke meltdown.';
+  }
+  setMessage(message, win ? 'win' : 'loss');
   updateStats();
 
   if (win) {
@@ -301,7 +339,7 @@ function applyReserveConversion() {
 
 function applyTokenEffect(type, index) {
   const jerryPoints = state.waterGirlChanceBonus >= 5 ? 2 : 1;
-  if (type === 'waterGirl') return endGame(true);
+  if (type === 'waterGirl') return endGame(true, true);
   if (type === 'nuke') return endGame(false);
 
   if (type === 'jerry') {
@@ -384,11 +422,11 @@ function pickTokenType() {
   if (evenSpawn && Math.random() < nukeChance) return 'nuke';
 
   const pool = [
-    ['jerry', state.waterGirlChanceBonus >= 7 ? 26 : 38],
-    ['deadFish', state.nukeChanceBonus >= 6 ? 0 : 12],
-    ['yellowSkull', state.nukeChanceBonus >= 11 ? 0 : 12],
+    ['jerry', state.waterGirlChanceBonus >= 7 ? 22 : 30],
+    ['deadFish', state.nukeChanceBonus >= 6 ? 0 : 16],
+    ['yellowSkull', state.nukeChanceBonus >= 11 ? 0 : 16],
     ['bio', 11],
-    ['well', 10],
+    ['well', 5],
     ['spring', 9],
     ['pool', 8],
     ['recycling', 6],
